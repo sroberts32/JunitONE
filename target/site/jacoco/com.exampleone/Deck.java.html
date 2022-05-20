@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Deck.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.exampleone</a> &gt; <span class="el_source">Deck.java</span></div><h1>Deck.java</h1><pre class="source lang-java linenums">package com.exampleone;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Deck {
+    private ArrayList&lt;Card&gt; cards;
+
+<span class="nc" id="L9">    public Deck() {</span>
+<span class="nc" id="L10">        this.cards = new ArrayList&lt;Card&gt;();</span>
+<span class="nc" id="L11">    }</span>
+
+    public void createFullDeck() {
+<span class="nc bnc" id="L14" title="All 2 branches missed.">        for (Suit cardSuit : Suit.values()) {</span>
+<span class="nc bnc" id="L15" title="All 2 branches missed.">            for(Value cardValue : Value.values()) {</span>
+<span class="nc" id="L16">                this.cards.add(new Card(cardSuit, cardValue));</span>
+            }
+        }
+<span class="nc" id="L19">    }</span>
+
+    public void shuffle() {
+<span class="nc" id="L22">        ArrayList&lt;Card&gt; tmpDeck = new ArrayList&lt;Card&gt;();</span>
+<span class="nc" id="L23">        Random random = new Random();</span>
+<span class="nc" id="L24">        int randomCardIndex = 0;</span>
+<span class="nc" id="L25">        int originalSize = this.cards.size();</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        for(int i = 0; i &lt; originalSize; i++) {</span>
+<span class="nc" id="L27">            randomCardIndex = random.nextInt((this.cards.size() - 1) + 1);</span>
+<span class="nc" id="L28">            tmpDeck.add(this.cards.get(randomCardIndex));</span>
+<span class="nc" id="L29">            this.cards.remove(randomCardIndex);</span>
+        }
+<span class="nc" id="L31">        this.cards = tmpDeck;</span>
+<span class="nc" id="L32">    }</span>
+
+    public String toString() {
+<span class="nc" id="L35">        String cardListOutput = &quot;&quot;;</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        for(Card aCard : this.cards) {</span>
+<span class="nc" id="L37">            cardListOutput += &quot;\n&quot; + aCard.toString();</span>
+
+<span class="nc" id="L39">        }</span>
+<span class="nc" id="L40">        return cardListOutput;</span>
+    }
+
+    public void removeCard(int i) {
+<span class="nc" id="L44">        this.cards.remove(i);</span>
+<span class="nc" id="L45">    }</span>
+
+    public Card getCard(int i) {
+<span class="nc" id="L48">        return this.cards.get(i);</span>
+    }
+
+    public void addCard(Card addCard) {
+<span class="nc" id="L52">        this.cards.add(addCard);</span>
+<span class="nc" id="L53">    }</span>
+
+    public void draw(Deck comingFrom) {
+<span class="nc" id="L56">        this.cards.add(comingFrom.getCard(0));</span>
+<span class="nc" id="L57">        comingFrom.removeCard(0);</span>
+<span class="nc" id="L58">    }</span>
+
+    public int deckSize() {
+<span class="nc" id="L61">        return this.cards.size();</span>
+    }
+    public void moveAllToDeck(Deck moveTo) {
+<span class="nc" id="L64">        int thisDeckSize = this.cards.size();</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        for(int i = 0; i &lt; thisDeckSize; i++) {</span>
+<span class="nc" id="L66">            moveTo.addCard(this.getCard(i));</span>
+        }
+
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        for(int i = 0; i &lt; thisDeckSize; i++){</span>
+<span class="nc" id="L70">            this.removeCard(0);</span>
+        }
+<span class="nc" id="L72">    }</span>
+
+    public int cardsValue() {
+<span class="nc" id="L75">        int totalValue = 0;</span>
+<span class="nc" id="L76">        int aces = 0;</span>
+
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        for(Card aCard : this.cards) {</span>
+<span class="nc bnc" id="L79" title="All 14 branches missed.">            switch(aCard.getValue()) {</span>
+<span class="nc" id="L80">            case TWO: totalValue += 2; break;</span>
+<span class="nc" id="L81">            case THREE: totalValue += 3; break;</span>
+<span class="nc" id="L82">            case FOUR: totalValue += 4; break;</span>
+<span class="nc" id="L83">            case FIVE: totalValue += 5; break;</span>
+<span class="nc" id="L84">            case SIX: totalValue += 6; break;</span>
+<span class="nc" id="L85">            case SEVEN: totalValue += 7; break;</span>
+<span class="nc" id="L86">            case EIGHT: totalValue += 8; break;</span>
+<span class="nc" id="L87">            case NINE: totalValue += 9; break;</span>
+<span class="nc" id="L88">            case TEN: totalValue += 10; break;</span>
+<span class="nc" id="L89">            case JACK: totalValue += 10; break;</span>
+<span class="nc" id="L90">            case QUEEN: totalValue += 10; break;</span>
+<span class="nc" id="L91">            case KING: totalValue += 10; break;</span>
+<span class="nc" id="L92">            case ACE: aces += 1; break;</span>
+            }
+<span class="nc" id="L94">        }</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        for(int i = 0; i &lt; aces; i++){</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">            if (totalValue &gt; 10) {</span>
+<span class="nc" id="L97">                totalValue += 1;</span>
+            } else {
+<span class="nc" id="L99">                totalValue += 11;</span>
+            }
+        }
+<span class="nc" id="L102">        return totalValue;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
